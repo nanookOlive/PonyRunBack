@@ -71,8 +71,10 @@ class NoDb {
             var lineIntoList :List<String> = line.split(";");
             //on assigne ele n => id, citation, auteur dans la map
             lineIntoMap["id"]=lineIntoList[0];
-            lineIntoMap["citation"]=lineIntoList[1];
-            lineIntoMap["auteur"]=lineIntoList[2];
+            lineIntoMap["date"]=lineIntoList[1];
+            lineIntoMap["distance"]=lineIntoList[2];
+            lineIntoMap["duration"]=lineIntoList[3];
+            lineIntoMap["rating"]=lineIntoList[4];
 
         }
         return lineIntoMap;
@@ -81,4 +83,27 @@ class NoDb {
 
     //renvoie un objet sortie à partir d'une ligne
 
+    public fun getAllOuting():MutableList<Sortie>
+    {
+        var allOutings : MutableList<Sortie> = mutableListOf<Sortie>();
+        var line : String? =null;
+        //on récupère l'ensemble des données
+        val iterableContent : BufferedReader? = this.getBuffererdReader();
+        while(iterableContent?.readLine().also{ line =it } !=null){
+
+            val splitedLine : MutableMap<String,String> = lineIntoMap(line);
+            //on instancie un objet sortie
+
+            var tmpOuting = Sortie(
+                splitedLine["id"],
+                splitedLine["date"],
+                splitedLine["distance"],
+                splitedLine["duration"],
+                splitedLine["rating"]
+            );
+
+            allOutings.add(tmpOuting);
+        }
+        return allOutings;
+    }
 }
