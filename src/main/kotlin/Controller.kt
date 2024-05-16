@@ -19,11 +19,17 @@ class Controller {
 
         //return content?.readLine();
         val res : String? =db.findById("3","citation");
-        return res;
+        val all = db.getAllOuting();
 
-
-
+        return all.toString();
     }
+
+    /**
+     * get toutes les sorties tableau d'objets sortie
+     *
+     * post nouvelle sortie
+     */
+
 
 
 }
