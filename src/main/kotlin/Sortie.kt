@@ -1,6 +1,5 @@
 package test
 
-import java.util.*
 
 
 class Sortie {
@@ -10,6 +9,7 @@ class Sortie {
     private var nbKilometres : String?;
     private var duree : String?;
     private var avis : String?;
+
 
 
     constructor(id : String?, date : String?, nbKilometres : String?, duree :String?, avis : String?){

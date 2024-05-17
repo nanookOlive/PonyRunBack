@@ -7,7 +7,15 @@ class NoDb {
 
     public var message : String? ="";
     private val PATH = "src/main/db.txt";
+    private val data : MutableList<Sortie> ;
 
+    constructor(){
+        data = this.getAllOuting();
+    }
+
+    public fun getData():MutableList<Sortie>{
+        return this.data;
+    }
     //renvoie  l'itérable avec le contenu de de db.txt
     private  fun getBuffererdReader():BufferedReader?{
         try{
@@ -31,6 +39,19 @@ class NoDb {
     //errorhandler
 
 
+    public fun findOutlingById(id : String):Sortie?{
+
+        var sortie: Sortie? = null;
+
+        //on boucle sur data
+        for(so in this.data){
+            if(so.getId() == id){
+                sortie=so;
+            }
+        }
+
+        return sortie;
+    }
     //Renvoie les les éléments que l'on souhaite à partir d'un id
     public fun findById(id : String,value : String? = null):String?{
         //on récupère le contneu du db.txt

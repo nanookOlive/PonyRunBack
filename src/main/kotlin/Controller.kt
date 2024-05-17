@@ -4,24 +4,29 @@ import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
-import java.io.BufferedReader
-import java.io.File
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
+import test.util.ToJson
+
 
 @Path("/test")
 class Controller {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/first")
-    public fun test():String?{
+    public fun test():String {
 
         val db: NoDb = NoDb();
 
-        //return content?.readLine();
-        val res : String? =db.findById("3","citation");
-        val all = db.getAllOuting();
 
-        return all.toString();
+        val outing = db.findOutlingById("11");
+
+        val util = ToJson();
+        return util.outlingToJson(outing)
     }
 
     /**
