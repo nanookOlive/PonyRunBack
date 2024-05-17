@@ -1,7 +1,6 @@
 package test
 
 
-
 class Sortie {
 
     private var id : String? ;

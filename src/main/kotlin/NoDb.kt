@@ -8,6 +8,7 @@ class NoDb {
     public var message : String? ="";
     private val PATH = "src/main/db.txt";
     private val data : MutableList<Sortie> ;
+    private var nbLines : Int=0;
 
     constructor(){
         data = this.getAllOuting();
@@ -39,7 +40,7 @@ class NoDb {
     //errorhandler
 
 
-    public fun findOutlingById(id : String):Sortie?{
+    public fun findOutingById(id : String):Sortie?{
 
         var sortie: Sortie? = null;
 
@@ -49,41 +50,15 @@ class NoDb {
                 sortie=so;
             }
         }
-
         return sortie;
     }
-    //Renvoie les les éléments que l'on souhaite à partir d'un id
-    public fun findById(id : String,value : String? = null):String?{
-        //on récupère le contneu du db.txt
-        val iterableContent : BufferedReader? = this.getBuffererdReader();
-        var resultat : String? = null;
-        var line :String?= null;
-        //on boucle pour le lire
-        while(iterableContent?.readLine().also { line = it } != null){
 
-           //call method String to map
-            val lineIntoMap = this.lineIntoMap(line);
-           // this.message = lineIntoMap["id"];
-            if(lineIntoMap["id"] == id) {
-               when(value){
-
-                   "citation" -> resultat=lineIntoMap["citation"];
-                   "auteur" -> resultat=lineIntoMap["auteur"];
-                   null -> resultat="ERROR YOU DONT SPECIFY VALUE.";
-               }
-            }
-        }
-        return resultat;
-
-    }
     //inscrire
 
     //supprimer
 
-    public fun echo():String{
-        return "works fine !";
-    }
-//renvoie les éléments d'une ligne sous la forme d'un ensemble clé valeur
+
+    //renvoie les éléments d'une ligne sous la forme d'un ensemble clé valeur
     private fun lineIntoMap(line :String?):MutableMap<String,String>{
         var lineIntoMap : MutableMap<String,String> = mutableMapOf();
         //on split la string
@@ -108,6 +83,7 @@ class NoDb {
     {
         var allOutings : MutableList<Sortie> = mutableListOf<Sortie>();
         var line : String? =null;
+        this.nbLines=0;
         //on récupère l'ensemble des données
         val iterableContent : BufferedReader? = this.getBuffererdReader();
         while(iterableContent?.readLine().also{ line =it } !=null){
@@ -124,7 +100,15 @@ class NoDb {
             );
 
             allOutings.add(tmpOuting);
+            this.nbLines++;
         }
         return allOutings;
     }
+
+    public fun getNbLines():Int
+    {
+        return this.nbLines;
+    }
+
+
 }
