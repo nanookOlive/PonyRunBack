@@ -34,23 +34,21 @@ class ToJson {
     public fun outingToJson(outing :Sortie?):String{
         return Json.encodeToString(JsonObject.serializer(),this.outingToJsonObject(outing));
     }
+
+
     public fun outingsToJson(outings : MutableList<Sortie>,nbLine : Int): String {
         //l'objet que l'on va renvoyer
         //  var outingsInJson : MutableList<String> = mutableListOf();
-        var outingsInJson = buildJsonObject { }.toMutableMap();
+        var outingsInJson = buildJsonObject {
+            for(i in 0 until nbLine){
+                val tmpOuting = outings[i];
+                put(i.toString(),outingToJsonObject(tmpOuting));
+            }
+         }
 
 //        //on ajoute à la liste ts les objets sérialisés
-        var flag: Int = 0;
-
-
-            while (flag < nbLine) {
-                var tmpOuting = outingToJsonObject(outings[flag]);
-                outingsInJson[flag.toString()] = JsonArray(listOf(tmpOuting));
-                flag++;
-            }
-
-            return Json.encodeToString(JsonObject.serializer(), JsonObject(outingsInJson));
-            //return Json.encodeToString(outingsInJson);
+        
+            return Json.encodeToString(outingsInJson);
 
     }
 
