@@ -1,7 +1,7 @@
 package test
 
 import java.io.*
-
+import test.Sortie
 
 class NoDb {
 
@@ -110,5 +110,72 @@ class NoDb {
         return this.nbLines;
     }
 
+    public fun dropOuting(id:Int):Boolean 
+    {
+        //on crée un tmpdb.txt dans lequel on inscrit toutes les sorties sauf celle  que l'on veut drop
+        //le db.txt=tmpdb.txt
 
+        //on vérifie que l'objet sortie existe
+        val tmpOuting:Sortie? = this.findOutingById(id.toString());
+
+        if(tmpOuting !=null){
+
+            //
+            var cpt : Int = 1;
+            try{
+
+                var tmp: File = File("src/main/tmpDb.txt");
+                //on videtmpdb
+                tmp.writeText("")
+                
+                for(sortie in this.data){
+                    if(sortie.getId() != tmpOuting.getId())
+                    {
+                        //on crée un nouvel id pour la sortie
+                        sortie.setId(cpt.toString());
+                        //la ligne qui sera inscrite dans le tmpDb
+                       val line : String = this.outingToLine(sortie);
+                        //inscrit dans tmpDb.txt
+                        
+                        tmp.appendText(line);
+                        cpt++;
+                    }
+                }
+            //db.txt = tmp.txt
+                if(this.copyContent()){
+                    return true;
+                }
+            
+
+            return false;
+
+            }catch(excpetion : IOException){
+
+                return false;
+            }
+            
+        }
+        return false;
+    }
+
+    private fun outingToLine(outing:Sortie):String
+    {
+        return outing.getId()+";"+outing.getDate()+";"+outing.getNbKilometres()+";"+outing.getDuree()+";"+outing.getAvis()+";\n";
+
+    }
+
+    private fun copyContent():Boolean{
+
+        try{
+            val source : File = File("src/main/tmpDb.txt");
+            val destination : File = File("src/main/db.txt");
+            val content = source.readText();
+            destination.writeText(content);
+            return true;
+        }catch(excpetion : IOException){
+            return false;
+        }
+        
+        
+    }
 }

@@ -1,6 +1,7 @@
 package test
 
 import jakarta.ws.rs.GET
+import jakarta.ws.rs.DELETE
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
@@ -53,8 +54,16 @@ class Controller {
     public fun nbLine():String{
 
         val db = NoDb();
-        return (db.getNbLines()==16).toString();
+        return db.getNbLines().toString();
 
+    }
+    
+    @DELETE
+    @Path("/drop/{id}")
+    public fun dropOuting(id : Int):Boolean
+    {
+        val db= NoDb();
+        return db.dropOuting(id) ;
     }
 
 }
