@@ -78,7 +78,7 @@ class Controller {
         @FormParam("avis")avis:String?
     ):String?{
         val outing=Sortie(
-            "33",
+            "0",
             date,
             nbKilometres,
             duree,
