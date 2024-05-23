@@ -12,19 +12,14 @@ class ToJson {
     //crée un json à partir d'un objet sortie
     private fun outingToJsonObject(outing : Sortie?):JsonObject{
 
-        //convertir tous les attributs de outling
-        val id : Int? = (outing?.getId())?.toInt();
-       // val date : Date? = convertDate(outling.getDate());
-        val nbKilometres : Float?= (outing?.getNbKilometres())?.toFloat();
-        val duree : Int? = (outing?.getDuree())?.toInt();
-
+        
         //conversion en json
 
         val ob  = buildJsonObject {
-            put("id",id)
+            put("id",outing?.getId())
             put("date",outing?.getDate())
-            put("nbKilometres",nbKilometres)
-            put("duree",duree)
+            put("nbKilometres",outing?.getNbKilometres())
+            put("duree",outing?.getDuree())
             put("avis",outing?.getAvis())
         }
       //  return Json.encodeToString(JsonObject.serializer(),ob);
