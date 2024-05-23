@@ -2,8 +2,11 @@ package test
 
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.DELETE
+import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.Produces
+import jakarta.ws.rs.Consumes
+import jakarta.ws.rs.FormParam
 import jakarta.ws.rs.core.MediaType
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -64,6 +67,23 @@ class Controller {
     {
         val db= NoDb();
         return db.dropOuting(id) ;
+    }
+    @POST
+    @Path("/create")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    fun createOuting(
+        @FormParam("date")date:String?,
+        @FormParam("nbKilometres")nbKilometres:String?,
+        @FormParam("duree")duree:String?,
+        @FormParam("avis")avis:String?
+    ):String?{
+        val outing=Sortie(
+            "33",
+            date,
+            nbKilometres,
+            duree,
+            avis);
+        return outing.getNbKilometres();
     }
 
 }

@@ -178,4 +178,9 @@ class NoDb {
         
         
     }
+
+    public fun createOuting():Boolean
+    {
+        
+    }
 }
