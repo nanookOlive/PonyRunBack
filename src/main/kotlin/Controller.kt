@@ -83,7 +83,9 @@ class Controller {
             nbKilometres,
             duree,
             avis);
-        return outing.getNbKilometres();
+        val db = NoDb();
+        
+        return db.createOuting(outing).toString();
     }
 
 }

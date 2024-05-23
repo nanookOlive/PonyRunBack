@@ -179,8 +179,23 @@ class NoDb {
         
     }
 
-    public fun createOuting():Boolean
+    public fun createOuting(line :String):Boolean
     {
+        return false;
+    }
+     public fun createOuting(sortie : Sortie):Boolean
+    {
+        sortie.setId((this.nbLines+1).toString());
+        
+        val line = this.outingToLine(sortie);
+        try{
+            val file : File = File(this.PATH);
+            file.appendText(line);
+            return true;
+        }catch(exception : IOException){
+            return false;
+        }
         
     }
+    
 }
