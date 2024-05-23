@@ -1,5 +1,5 @@
-db.txt
-tmpDb.txt
+./src/main/db.txt
+./src/main/tmpDb.txt
 #Maven
 target/
 pom.xml.tag
